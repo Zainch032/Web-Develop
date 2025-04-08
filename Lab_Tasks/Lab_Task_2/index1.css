@@ -65,23 +65,23 @@ body {
 }
 
 
-form {
+#checkform{
     background: rgba(255, 255, 255, 0.1);
     padding: 30px 40px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.2rem;
     width: 600px;
     margin-top: 30px;
 }
-fieldset {
+div {
     border: 1px solid white;
     padding: 10px;
     border-radius: 5px;
 }
-legend {
+p{
     padding: 0 5px;
     font-weight: bold;
 }
@@ -115,4 +115,4 @@ footer {
 .payment-methods img {
     width: 40px;
     margin: 10px;
-}
+} 
