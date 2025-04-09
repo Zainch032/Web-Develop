@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout - Thought Clothing</title>
+  <link rel="stylesheet" href="./index1.css" />
+</head>
+<body>
+  <div class="top-banner">
+    <span>FREE DELIVERY ON ORDERS OVER £49</span>
+    <span>3 FOR £15 ON BESTSELLING SOCKS</span>
+  </div>
+
+  <div class="navbar">
+    <a href="#"><img src="Images/Thought_Logo_green_03085062-fac8-4d79-a7bd-f6e3a2b50c04.avif" alt="Thought Logo"/></a>
+    <ul>
+      <li><a href="#">MENS SOCKS</a></li>
+      <li><a href="#">WOMENS SOCKS</a></li>
+      <li><a href="#">KIDS SOCKS</a></li>
+      <li><a href="#">OUTLET</a></li>
+    </ul>
+    <div class="icons">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="8" r="4" stroke="black" stroke-width="2"/>
+        <path d="M4 20C4 16.6863 7.13401 14 12 14C16.866 14 20 16.6863 20 20" stroke="black" stroke-width="2"/>
+      </svg>
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="11" cy="11" r="6" stroke="black" stroke-width="2"/>
+        <line x1="16" y1="16" x2="22" y2="22" stroke="black" stroke-width="2"/>
+      </svg>
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="9" cy="21" r="1" stroke="black" stroke-width="2"/>
+        <circle cx="20" cy="21" r="1" stroke="black" stroke-width="2"/>
+        <path d="M1 1H5L7.5 14H18.5L22 4H6" stroke="black" stroke-width="2"/>
+      </svg>
+    </div>
+  </div>
+
+  <form id="checkform">
+    <div class="form-group">
+      <p>Full Name</p>
+      <input type="text" id="fullName" name="fullName" required pattern="^[A-Za-z ]+$"/>
+    </div>
+
+    <div class="form-group">
+      <p>Email</p>
+      <input type="email" id="email" name="email" required/>
+    </div>
+
+    <div class="form-group">
+      <p>Phone Number</p>
+      <input type="tel" id="phone" name="phone" required pattern="\d{10,15}"/>
+    </div>
+
+    <div class="form-group">
+      <p>Address</p>
+      <textarea id="address" name="address" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <p>Credit Card Number</p>
+      <input type="text" id="cardNumber" name="cardNumber" maxlength="16"/>
+    </div>
+
+    <div class="form-group">
+      <p>Expiry Date</p>
+      <input type="month" id="expiryDate" name="expiryDate" required/>
+    </div>
+
+    <div class="form-group">
+      <p>CVV</p>
+      <input type="text" id="cvv" name="cvv" required maxlength="3" pattern="\d{3}"/>
+    </div>
+
+    <button type="submit">Place Order</button>
+  </form>
+
+  <footer>
+    <div class="payment-methods">
+      <h4>Secure Payment via:</h4>
+      <img src="Images/mastercard.svg" alt="MasterCard" />
+      <img src="Images/paypal.svg" alt="PayPal" />
+      <img src="Images/amex.svg" alt="Amex" />
+      <img src="Images/visa.svg" alt="Visa" />
+    </div>
+    <p>© 2025 - Thought Clothing UK Powered by Shopify</p>
+  </footer>
+
+  <script>
+    document.getElementById('checkoutForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      if (!this.checkValidity()) {
+        alert("Please fill out all fields correctly before submitting.");
+      } else {
+        alert("Form submitted successfully!");
+        
+      }
+    });
+  </script>
+</body>
+</html>
