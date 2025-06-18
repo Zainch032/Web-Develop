@@ -1,0 +1,100 @@
+<%- include('layout') %>
+
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h2 class="mb-0">Order Details</h2>
+          <span class="badge bg-<%= order.status === 'completed' ? 'success' : 'warning' %>">
+            <%= order.status %>
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <h5>Order Information</h5>
+              <p class="mb-1"><strong>Order ID:</strong> <%= order._id.toString().slice(-6) %></p>
+              <p class="mb-1"><strong>Date:</strong> <%= formatDate(order.createdAt) %></p>
+              <p class="mb-1"><strong>Status:</strong> <%= order.status %></p>
+            </div>
+            <div class="col-md-6">
+              <h5>Shipping Address</h5>
+              <p class="mb-1"><%= order.shippingAddress.street %></p>
+              <p class="mb-1"><%= order.shippingAddress.city %>, <%= order.shippingAddress.state %></p>
+              <p class="mb-1"><%= order.shippingAddress.zipCode %></p>
+              <p class="mb-1"><%= order.shippingAddress.country %></p>
+            </div>
+          </div>
+
+          <h5>Order Items</h5>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% order.items.forEach(item => { %>
+                  <tr>
+                    <td><%= item.title %></td>
+                    <td>£<%= formatPrice(item.price) %></td>
+                    <td><%= item.quantity %></td>
+                    <td>£<%= formatPrice(item.price * item.quantity) %></td>
+                  </tr>
+                <% }); %>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                  <td><strong>£<%= formatPrice(order.totalAmount) %></strong></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .card {
+    border: none;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+  }
+
+  .card-header {
+    background: white;
+    border-bottom: 1px solid #eee;
+    padding: 1.5rem;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .table {
+    margin-bottom: 0;
+  }
+
+  .table th {
+    background: #f8f9fa;
+    font-weight: 600;
+  }
+
+  .badge {
+    padding: 8px 12px;
+    font-weight: 500;
+  }
+
+  h5 {
+    color: #333;
+    margin-bottom: 1rem;
+  }
+</style> 

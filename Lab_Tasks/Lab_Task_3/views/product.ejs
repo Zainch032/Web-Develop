@@ -1,0 +1,11 @@
+<h1>Home Page</h1>
+
+<% for( let index = 0; index < products.length; index++ ) { %>
+    <div class="product">
+        <h2 class="product-title"> <%= products[index].title %> </h2>
+        
+        <div class="product-price"><%= products[index].price %></div>  
+        <p class="product-description"><%= products[index].description %></p>      
+        <div><%= products[index].Image %></div>
+    </div>
+<% } %>

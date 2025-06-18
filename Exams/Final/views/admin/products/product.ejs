@@ -1,0 +1,10 @@
+<!-- views/admin/products/product.ejs -->
+<h1>Home Pagee</h1>
+
+<% for(let product of products) { %>
+  <div class="product">
+    <h2><%= product.title %></h2>
+    <div>Price: $<%= (product.price / 100).toFixed(2) %></div> <!-- Format price -->
+    <p><%= product.description %></p>
+  </div>
+<% } %>

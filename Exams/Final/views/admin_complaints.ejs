@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All User Complaints</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container py-5">
+    <h2 class="mb-4 text-center">All User Complaints</h2>
+    <% if (complaints.length === 0) { %>
+      <div class="alert alert-info text-center">No complaints have been submitted yet.</div>
+    <% } else { %>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>User Name</th>
+            <th>User Email</th>
+            <th>Order ID</th>
+            <th>Message</th>
+            <th>Submitted At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% complaints.forEach(function(complaint) { %>
+            <tr>
+              <td><%= complaint.userID ? complaint.userID.name : 'N/A' %></td>
+              <td><%= complaint.userID ? complaint.userID.email : 'N/A' %></td>
+              <td><%= complaint.orderId %></td>
+              <td><%= complaint.message %></td>
+              <td><%= new Date(complaint.timestamp).toLocaleString() %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+    <div class="text-center mt-4">
+      <a href="/admin/products" class="btn btn-secondary">Back to Product Management</a>
+    </div>
+  </div>
+</body>
+</html> 

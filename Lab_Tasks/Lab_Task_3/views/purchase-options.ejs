@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Options - Thought Clothing</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f1f8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .option-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            width: 300px;
+        }
+        .option-card:hover {
+            transform: translateY(-10px);
+        }
+        .option-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #843D97;
+        }
+        .btn-option {
+            background-color: #843D97;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .btn-option:hover {
+            background-color: #732285;
+            color: white;
+        }
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #843D97;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        .back-link:hover {
+            color: #732285;
+        }
+        .footer {
+            background-color: #843D97;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <a href="/" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <div class="main-content">
+        <div class="container">
+            <h1 class="text-center mb-5">Ready to Shop?</h1>
+            <div class="row justify-content-center">
+                <!-- Register Option -->
+                <div class="col-md-6">
+                    <div class="option-card">
+                        <i class="fas fa-user-plus option-icon"></i>
+                        <h3>New Customer?</h3>
+                        <p>Create an account to start shopping and track your orders</p>
+                        <a href="/register" class="btn-option">Register Now</a>
+                    </div>
+                </div>
+
+                <!-- Login Option -->
+                <div class="col-md-6">
+                    <div class="option-card">
+                        <i class="fas fa-sign-in-alt option-icon"></i>
+                        <h3>Existing Customer?</h3>
+                        <p>Sign in to your account to continue shopping</p>
+                        <a href="/login" class="btn-option">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Thought Clothing. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

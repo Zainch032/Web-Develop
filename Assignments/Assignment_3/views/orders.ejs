@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+      h3{
+        text-align: end;
+      }
+        .order-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .order-header {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .order-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-processing {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .status-shipped {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-delivered {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .order-items {
+            padding: 1rem;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-price {
+            color: #4CAF50;
+        }
+
+        .order-footer {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .shipping-address {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .address-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .address-details {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .no-orders {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .no-orders p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .shop-now-btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .shop-now-btn:hover {
+            background: #45a049;
+        }
+
+        @media (max-width: 768px) {
+            .order-header {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+
+            .order-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Orders</h1>
+        <h3><a href="/shop.ejs">Return to shop</a></h3>
+        <% if (orders.length === 0) { %>
+            <div class="no-orders">
+                <p>You haven't placed any orders yet.</p>
+                <a href="/products" class="shop-now-btn">Start Shopping</a>
+            </div>
+        <% } else { %>
+            <% orders.forEach(order => { %>
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-date">
+                            Order Date: <%= new Date(order.orderDate).toLocaleDateString() %>
+                        </div>
+                        <div class="order-status status-<%= order.status %>">
+                            <%= order.status.charAt(0).toUpperCase() + order.status.slice(1) %>
+                        </div>
+                    </div>
+
+                    <div class="order-items">
+                        <% order.items.forEach(item => { %>
+                            <div class="order-item">
+                                <img src="<%= item.product.imageUrl %>" alt="<%= item.product.title %>" class="item-image">
+                                <div class="item-details">
+                                    <div class="item-title"><%= item.product.title %></div>
+                                    <div class="item-price">£<%= item.price.toFixed(2)/1000.00 %></div>
+                                    <div class="item-quantity">Quantity: <%= item.quantity %></div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+
+                    <div class="shipping-address">
+                        <div class="address-title">Shipping Address</div>
+                        <div class="address-details">
+                            <%= order.shippingAddress.street %><br>
+                            <%= order.shippingAddress.city %>, <%= order.shippingAddress.state %> <%= order.shippingAddress.zipCode %><br>
+                            <%= order.shippingAddress.country %>
+                        </div>
+                    </div>
+
+                    <div class="order-footer">
+                        <div class="order-total">
+                            Total: £<%= order.totalAmount.toFixed(2)/100 %>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        <% } %>
+    </div>
+</body>
+</html> 
