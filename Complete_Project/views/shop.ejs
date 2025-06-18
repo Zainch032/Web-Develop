@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop - Your Store</title>
+ 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* --- General Body & Typography --- */
+    :root {
+        --primary-color: #ce4ea8;
+        --primary-light: #f0daeb;
+        --primary-dark: #9c4f86;
+        --highlight-color: #c679c4;
+        --light-bg: #f9f9f9;
+        --white: #ffffff;
+        --text-light: #bdc3c7;
+        --text-dark: #2c3e50;
+    }
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: var(--light-bg);
+        color: var(--primary-color);
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      color: var(--text-dark);
+    }
+    
+    /* --- Header & Navigation --- */
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 1020;
+      background-color: var(--white);
+      box-shadow: 0 2px 10px rgba(129, 75, 114, 0.1);
+    }
+    .promo-bar {
+      background-color: var(--primary-color);
+      color: var(--white);
+      text-align: center;
+      padding: 8px 0;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+    }
+    .promo-bar p {
+      margin: 0;
+      display: inline;
+      padding: 0 15px;
+    }
+    .main-nav {
+      padding: 10px 0;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 90%;
+      margin: 0 auto;
+    }
+    .logo img {
+      height: 40px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+    .nav-link {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover {
+      color: var(--primary-light);
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    .nav-icons .icon-btn {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      cursor: pointer;
+      transition: color 0.3s ease;
+      padding: 0 10px;
+    }
+    .nav-icons .icon-btn:hover {
+      color: var(--primary-light);
+    }
+    
+    /* --- Shop Section --- */
+    .shop-main {
+      padding: 2rem 0;
+    }
+    .shop-main h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: var(--text-dark);
+    }
+    .products-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .product-card {
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border: 1px solid #eee;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    .product-image-container {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background: var(--white);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .product-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.4s ease;
+    }
+    .product-card:hover .product-image {
+      transform: scale(1.05);
+    }
+    .product-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(241, 159, 218, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .product-card:hover .product-overlay {
+      opacity: 1;
+    }
+    .add-to-cart-btn {
+      background: var(--white);
+      color: var(--primary-color);
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .add-to-cart-btn:hover {
+      background: var(--highlight-color);
+      color: var(--white);
+    }
+    .product-info {
+      padding: 20px;
+      text-align: center;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      min-height: 3em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-description {
+      color: #777;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+      flex-grow: 1;
+    }
+    .product-price {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-top: 10px;
+    }
+    
+    /* --- Cart Link --- */
+    .cart-link {
+      position: fixed;
+      top: 120px;
+      right: 20px;
+      z-index: 1000;
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      border-radius: 50px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      padding: 10px 20px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    .cart-link:hover {
+      background-color: var(--primary-light);
+      border-color: var(--primary-light);
+      transform: translateY(-2px);
+    }
+    
+    /* --- Notification --- */
+    .notification {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 5px;
+      box-shadow: 0 4px 15px rgba(242, 12, 211, 0.756);
+      z-index: 1001;
+      display: none;
+      animation: slideIn 0.5s ease-out;
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateX(120%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    @keyframes slideOut {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(120%);
+        opacity: 0;
+      }
+    }
+    
+    /* --- Footer Styling --- */
+    .footer {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      padding: 50px 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      text-align: center;
+    }
+    .footer h2, .footer h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .footer p, .footer li, .footer pre {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .footer pre {
+      white-space: pre-line;
+    }
+    .footer .center img {
+      height: 50px;
+      margin-bottom: 15px;
+    }
+    .footer .center .form-control {
+      background-color: rgba(223, 135, 217, 0.97);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white);
+      border-radius: 5px 0 0 5px;
+      padding: 10px;
+    }
+    .footer .center .form-control::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+    .footer .center .a1 {
+      background-color: var(--highlight-color);
+      color: var(--white);
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      border-radius: 0 5px 5px 0;
+      font-weight: 500;
+    }
+    .footer .center .a1:hover {
+      background-color: var(--primary-light);
+    }
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer ul li {
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .footer ul li:hover {
+      color: var(--white);
+    }
+    
+    /* --- Social & Copyright Footer --- */
+    .social {
+      background-color: var(--primary-dark);
+      text-align: center;
+      padding: 15px 0;
+    }
+    .social a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1.5rem;
+      margin: 0 15px;
+      transition: color 0.3s ease;
+    }
+    .social a:hover {
+      color: var(--highlight-color);
+    }
+    .social img {
+      height: 22px;
+      filter: brightness(0) invert(1);
+    }
+    footer {
+      background-color: var(--primary-dark);
+      padding: 20px 0;
+      text-align: center;
+      color: var(--text-light);
+    }
+    .payment-methods {
+      margin-bottom: 15px;
+    }
+    .payment-methods h4 {
+      color: var(--white);
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    .payment-methods img {
+      height: 25px;
+      margin: 0 8px;
+      filter: brightness(0) invert(1) opacity(0.8);
+    }
+    .copyright {
+      font-size: 0.85rem;
+      margin: 0;
+    }
+    
+    /* --- Responsive Adjustments --- */
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .products-container {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      }
+      .product-image-container {
+        height: 240px;
+      }
+      .cart-link {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="notification" class="notification"></div>
+ 
+  <header class="sticky-header">
+    <div class="promo-bar">
+      <p>FREE DELIVERY ON ORDERS OVER £49</p>
+      <p>3 FOR £15 ON BESTSELLING SOCKS</p>
+    </div>
+    <nav class="main-nav">
+      <div class="nav-container">
+        <a href="/" class="logo">
+          <img src="/src/images/Thought_Logo_green_03085062-fac8-4d79-a7bd-f6e3a2b50c04.avif" alt="Thought Clothing Logo" />
+        </a>
+        <div class="nav-links">
+          <a href="/form" class="nav-link cta-link">Fill Form</a>
+          <a href="/register" class="nav-link cta-link">Register</a>
+          <a href="#" class="nav-link">Men's Socks</a>
+          <a href="#" class="nav-link">Women's Socks</a>
+          <a href="#" class="nav-link">Kids Socks</a>
+          <a href="#" class="nav-link">Outlet</a>
+        </div>
+        <div class="nav-icons">
+          <button class="icon-btn"><i class="fas fa-search"></i></button>
+          <button class="icon-btn"><i class="fas fa-heart"></i></button>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- SHOP SECTION -->
+  <main class="shop-main">
+    <div class="container py-5">
+      <a href="/cart/dashboard" class="btn btn-primary cart-link">
+        <i class="fas fa-shopping-cart"></i> View Cart
+      </a>
+      <h1 class="text-center mb-4">Our Products</h1>
+      <div class="products-container">
+        <% products.forEach(product => { %>
+          <div class="product-card">
+            <div class="product-image-container">
+              <img src="<%= product.imageUrl %>" alt="<%= product.title %>" class="product-image" />
+              <div class="product-overlay">
+                <button onclick="addToCart('<%= product._id %>', '<%= product.title %>')" class="add-to-cart-btn">
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+            <div class="product-info">
+              <h3><%= product.title %></h3>
+              <p class="product-description"><%= product.description %></p>
+              <p class="product-price">£<%= formatPrice(product.price) %></p>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+      <% if (products.length === 0) { %>
+      <div class="alert alert-info text-center">
+        No products available at the moment.
+      </div>
+      <% } %>
+    </div>
+  </main>
+  
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>
+      <h2>Here to Help</h2>
+      <pre>      Contact Us    Ordering & Payment </pre>
+      <pre>Delivery        Returns  </pre>
+      <pre>Size Guide</pre>
+    </div>
+    <div class="center">
+      <img src="/src/images/Thought_Logo_White_200x.avif" alt="Logo" />
+      <p><b>Thought Clothing UK powered by Shopify</b></p>
+      <br />
+      <p>
+        Sign up to our newsletter and be the first to hear about our
+        <br />latest news & offers.
+      </p>
+      <pre>
+        <input type="email" class="form-control" id="email" placeholder="Email address*" name="email">
+        <button class="a1">Sign Up</button>
+      </pre>
+    </div>
+    <div>
+      <h3>About Thought</h3>
+      <ul style="list-style: none">
+        <li>Stockists</li>
+        <li>The Small Print</li>
+        <li>Wholesale</li>
+      </ul>
+    </div>
+  </div>
+  <div class="social">
+    <a href="https://facebook.com/thoughtclothing/">📘</a>
+    <a href="https://www.instagram.com/thoughtthebrand/">📸</a>
+    <a href="https://pinterest.com/thoughtclothing/">
+      <img src="/src/images/pinterest.svg" alt="" />
+    </a>
+  </div>
+  <footer>
+    <div class="payment-methods">
+      <h4>Secure Payment via:</h4>
+      <img src="/src/images/mastercard.svg" alt="MasterCard" />
+      <img src="/src/images/paypal.svg" alt="PayPal" />
+      <img src="/src/images/amex.svg" alt="Amex" />
+      <img src="/src/images/visa.svg" alt="Visa" />
+    </div>
+    <p class="copyright">© 2025 - Thought Clothing UK Powered by Shopify</p>
+  </footer>
+  
+  <script>
+    function showPurchasePrompt() {
+      if (confirm("To make a purchase, you need to create an account or login. Would you like to proceed?")) {
+        window.location.href = "/purchase";
+      }
+    }
+
+    async function addToCart(productId, productName) {
+      try {
+        const response = await fetch("/cart/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ productId }),
+        });
+
+        const data = await response.json();
+        
+        if (response.status === 401 || response.status === 403) {
+          window.location.href = "/login";
+          return;
+        }
+
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to add to cart");
+        }
+
+        showNotification(`${productName} added to cart successfully!`);
+      } catch (error) {
+        console.error("Error:", error);
+        showNotification(error.message || "Failed to add product to cart. Please try again.");
+      }
+    }
+
+    function showNotification(message) {
+      const notification = document.getElementById("notification");
+      notification.textContent = message;
+      notification.style.display = "block";
+      setTimeout(() => {
+        notification.style.animation = "slideOut 0.5s ease-out";
+        setTimeout(() => {
+          notification.style.display = "none";
+          notification.style.animation = "slideIn 0.3s ease-out";
+        }, 500);
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

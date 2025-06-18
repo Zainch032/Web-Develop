@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Your Store</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+      body {
+        background-color: #f4f1f8; /* Soft purple background */
+      }
+      .purple-theme {
+        background-color: #f9f9f9;
+        color:  #b75d9e;
+        border: 1px solid #e0d4f7;
+        border-radius: 12px;
+      }
+      .purple-theme .form-control:focus {
+        border-color: #814b72;
+        box-shadow: 0 0 0 0.25rem rgba(129, 75, 114, 0.25);
+      }
+      .btn-purple {
+        background: #814b72;
+        border-color: #814b72;
+        color: #ffffff;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        padding: 12px 30px;
+      }
+      .btn-purple::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, 
+          #e4c2db 0%,
+          #dd9acc 25%,
+          #e461c6 50%,
+          #9a5b8a 75%,
+          #ea51bf 100%);
+        transition: all 0.7s cubic-bezier(0.3, 0.2, 0.4, 0.8);
+        z-index: -1;
+      }
+      .btn-purple:hover {
+        border-color: #dc65ba;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(129, 75, 114, 0.4);
+      }
+      .btn-purple:hover::before {
+        left: 0;
+      }
+      .btn-purple:active {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(129, 75, 114, 0.3);
+      }
+      .form-check-input:checked {
+        background-color: #814b72;
+        border-color: #814b72;
+      }
+      a {
+        color: #814b72;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #ca75b5;
+        text-decoration: underline;
+      }
+      /* Custom styles for consistent form control sizing in login form */
+      .form-control {
+        height: 48px !important;
+        box-sizing: border-box !important;
+      }
+
+      /* Specific override for email input to ensure consistency */
+      #email {
+        width: 100% !important;
+        height: 48px !important;
+        box-sizing: border-box !important;
+      }
+
+      /* Eye icon positioning */
+      .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 38px; /* Adjust based on your input height */
+        cursor: pointer;
+        color: #814b72; /* Match your theme color */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card purple-theme p-4">
+            <h2 class="text-center mb-4">Login</h2>
+            <% if (typeof error !== 'undefined') { %>
+            <div class="alert alert-danger" role="alert"><%= error %></div>
+            <% } %>
+            <form action="/login" method="POST">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="mb-3 position-relative">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  required
+                />
+                <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('password')"></i>
+              </div>
+              <div class="mb-3 form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="remember"
+                  name="remember"
+                />
+                <label class="form-check-label" for="remember">Remember me</label>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-purple">Login</button>
+              </div>
+              <div class="text-center mt-3">
+                <p>Don't have an account? <a href="/register">Register here</a></p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function togglePasswordVisibility(id) {
+        const passwordField = document.getElementById(id);
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+      }
+    </script>
+  </body>
+</html>
+
